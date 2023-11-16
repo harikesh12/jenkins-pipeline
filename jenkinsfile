@@ -1,10 +1,19 @@
 pipeline{
     agent any
+    // to set path for maven 
+//     environemnt {
+//         PATH = /opt/maven:$PATH
+//      }
     stages{
         stage('git checkout'){
             steps{
                 git 'https://github.com/harikesh12/hello-world.git'
             }
         }
+        stage('maven build'){
+            steps{
+               sh "mvn clean package"
+         }
+       }
     }
 }
