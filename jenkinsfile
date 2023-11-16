@@ -4,6 +4,12 @@ pipeline{
    // environemnt {
    //   PATH = C:/Maven/Maven/Maven/apache-maven-3.8.4-bin/apache-maven-3.8.4/bin:$PATH 
    // }
+    tools{
+    maven 'maven'
+    }
+    environment{
+    maven_home = tool 'maven'
+}
     stages{
         stage('git checkout'){
             steps{
@@ -12,8 +18,8 @@ pipeline{
         }
         stage('maven build'){
             steps{
-                  def mvnHome = tool name: 'Maven', type: 'maven'
-                  sh "${mvnHome}/bin/mvn clean package"
+                
+                  sh "${maven_home}/bin/mvn clean package"
         
          }
        }
