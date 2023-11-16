@@ -1,9 +1,9 @@
 pipeline{
     agent any
     // to set path for maven 
-//     environemnt {
-//         PATH = /opt/maven:$PATH
-//      }
+    environemnt {
+      PATH = C:\Maven\Maven\Maven\apache-maven-3.8.4-bin\apache-maven-3.8.4\bin:$PATH 
+    }
     stages{
         stage('git checkout'){
             steps{
