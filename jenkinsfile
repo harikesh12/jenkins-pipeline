@@ -12,7 +12,10 @@ pipeline{
         }
         stage('maven build'){
             steps{
-               sh "mvn clean package"
+               sh '''
+                cd hello-world/
+                mvn clean package
+                '''
          }
        }
     }
