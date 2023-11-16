@@ -5,10 +5,10 @@ pipeline{
    //   PATH = C:/Maven/Maven/Maven/apache-maven-3.8.4-bin/apache-maven-3.8.4/bin:$PATH 
    // }
     tools{
-    maven_tool 'maven'
+    maven 'maven'
     }
     environment{
-    maven_home = tool 'maven_tool'
+    maven_home = tool 'maven'
 }
     stages{
         stage('git checkout'){
