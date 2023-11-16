@@ -20,7 +20,7 @@ pipeline{
             steps{
                 
                   sh "${maven_home}/bin/mvn clean package"
-                  sh "mv target/*.war target/myapp.war"
+                  sh "mv webapp/target/*.war webapp/target/myapp.war"
         
          }
        }
@@ -28,7 +28,7 @@ pipeline{
          steps{
                 sshagent(['tomcat']) {
                    sh """
-                    scp -o StrictHostKeyChecking=no target/myapp.war ec2-user@3.110.87.99:/opt/tomcat1/apache-tomcat-9.0.79/webapps
+                    scp -o StrictHostKeyChecking=no webapp/target/myapp.war ec2-user@3.110.87.99:/opt/tomcat1/apache-tomcat-9.0.79/webapps
                      shh ec2-user@3.110.87.99 /opt/tomcat1/apache-tomcat-9.0.79/bin/shutdown.sh
                      shh ec2-user@3.110.87.99 /opt/tomcat1/apache-tomcat-9.0.79/bin/startup.sh
                   """
