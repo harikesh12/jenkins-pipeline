@@ -12,10 +12,9 @@ pipeline{
         }
         stage('maven build'){
             steps{
-               sh '''
-                cd hello-world/
-                mvn clean package
-                '''
+               withMaven(maven: 'maven') {
+                 sh "mvn clean package"
+        }
          }
        }
     }
