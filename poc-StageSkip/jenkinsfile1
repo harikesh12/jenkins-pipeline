@@ -1,0 +1,59 @@
+pipeline {
+    agent any
+    stages {
+        stage('git checkout') {
+            steps {
+                echo 'git checkout - stage 1'
+            }
+        }
+        stage('build') {  
+            input {
+                message 'IF you want to skip build stage ?'
+                ok 'Submit'
+                parameters {
+                choice choices: ['yes', 'No'], name: 'skip_test'
+                }
+            }
+            steps {
+               
+                script{
+                    if (skip_test.equals('No')) {
+                        echo "Build step executed - stage 2"
+                        return
+                    }
+                }
+                     
+                } 
+            }
+        stage('sonarqube') {
+            steps {
+                echo 'sonarqube anaylysis happening - stage 3'
+            }
+        }
+        stage('test stage') {
+            input {
+                message 'IF you want to skip test stage ?'
+                ok 'Submit'
+                parameters {
+                choice choices: ['yes', 'No'], name: 'skip_testt'
+                }
+            }
+            
+            when {
+              expression{
+                  skip_testt == "No"
+              }
+              } 
+            steps {
+                echo skip_testt
+                echo "running test stage - step 4"
+        }
+            
+        }
+         stage('Deployment') {
+            steps {
+                echo 'Deployment happening - step 5'
+            }
+        }
+    }
+}
