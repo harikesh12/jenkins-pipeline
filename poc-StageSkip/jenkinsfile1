@@ -46,13 +46,13 @@ pipeline {
               } 
             steps {
                 echo skip_testt
-                echo "running test stage - step 4"
+                echo "running test stage - stage 4"
         }
             
         }
          stage('Deployment') {
             steps {
-                echo 'Deployment happening - step 5'
+                echo 'Deployment happening - stage 5'
             }
         }
     }
