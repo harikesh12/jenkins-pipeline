@@ -32,7 +32,6 @@ pipeline {
               }
               } 
             steps {
-                echo skip_testt
                 echo "running test stage - step 4"
         }
             
