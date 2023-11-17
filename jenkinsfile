@@ -1,3 +1,4 @@
+currentBuild.displayName = "my-info-website-#"+currentBuild.number
 pipeline{
     agent any
     // to set path for maven 
