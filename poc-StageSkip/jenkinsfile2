@@ -17,13 +17,7 @@ pipeline {
               }
               } 
             steps {   
-                script{
-                    if (skip_test.equals('No')) {
                         echo "Build step executed - stage 2"
-                        return
-                    }
-                }
-                     
                 } 
             }
         stage('sonarqube') {
