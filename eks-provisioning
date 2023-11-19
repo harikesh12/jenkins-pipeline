@@ -1,0 +1,49 @@
+pipeline {
+    agent any
+     environment{
+        scanner_home = tool 'Sonar-Scanner'
+        GIT_REPO_NAME = "Tetris-manifest"
+        GIT_USER_NAME = "harikesh12"
+    }
+    stages {
+        stage('clean workspace') {
+            steps {
+                cleanWs()
+            }
+        }
+        stage('checkout') {
+          steps {
+             git credentialsId: 'git-user', url: 'https://github.com/harikesh12/terraform.git'
+        }
+        }
+        
+        stage('terraform init') {
+            steps {
+                dir('terraform_practise/EKS') {
+                  sh 'terraform init'
+                }
+            }
+        }
+        stage('terraform validate') {
+            steps {
+                dir('terraform_practise/EKS') {
+                  sh 'terraform validate'
+                }
+            }
+        }
+        stage('terraform plan') {
+            steps {
+                dir('terraform_practise/EKS') {
+                  sh 'terraform plan'
+                }
+            }
+        }
+        stage('terraform apply/destroy') {
+            steps {
+                dir('terraform_practise/EKS') {
+                  sh 'terraform ${action} --auto-approve'
+                }
+            }
+        }
+    }
+}
