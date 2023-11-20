@@ -1,0 +1,58 @@
+currentBuild.displayName = "my-info-website-#"+currentBuild.number
+pipeline{
+    agent any
+    // to set path for maven 
+   // environemnt {
+   //   PATH = C:/Maven/Maven/Maven/apache-maven-3.8.4-bin/apache-maven-3.8.4/bin:$PATH 
+   // }
+    tools{
+    maven 'maven'
+    }
+    environment{
+    maven_home = tool 'maven'
+}
+    stages{
+        stage('git checkout'){
+            steps{
+                git 'https://github.com/harikesh12/hello-world.git'
+            }
+        }
+        stage('maven build'){
+            steps{
+                
+                  sh "${maven_home}/bin/mvn clean package"
+                  sh "mv webapp/target/*.war webapp/target/myapp.war"
+        
+         }
+       }
+       stage('Artifact Upload'){
+           steps{
+                rtUpload (
+        serverId: "Artifactory",
+        spec:
+            """{
+              "files": [
+                {
+                  "pattern": "webapp/target/myapp.*",
+                  "target": "test"
+                }
+             ]
+            }""",
+        failNoOp: true
+    )
+           }
+       }
+       stage('build info upload'){
+           steps{
+               rtPublishBuildInfo(
+                   buildName : JOB_NAME,
+                   buildNumber : BUILD_NUMBER,
+                  serverId : "Artifactory"
+                   
+               )
+           }
+           
+       }
+
+    }
+}
