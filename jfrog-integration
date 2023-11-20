@@ -1,3 +1,5 @@
+// https://www.youtube.com/watch?v=4PX3LCVjAEA   video to refer
+
 currentBuild.displayName = "my-info-website-#"+currentBuild.number
 pipeline{
     agent any
@@ -56,3 +58,20 @@ pipeline{
 
     }
 }
+
+
+//  stage('Artifact upload') {
+//             steps {
+
+//                 // Search for .jar file and upload it to the Artifactory repo
+//                 jf 'rt u *.jar testantproject'
+
+//                 // Publish the build-info to Artifactory.
+//                 jf 'rt bp'
+
+//                 //Jfrof Xray Scan
+//                 jf 's *.jar'
+//                 //jf 'bs'
+
+//             }
+//         }
