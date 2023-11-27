@@ -71,7 +71,7 @@ pipeline{
 
 //                 //Jfrof Xray Scan
 //                 jf 's *.jar'
-//                 //jf 'bs'
+//                 //jf 'rt bs'
 
 //             }
 //         }
