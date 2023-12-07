@@ -1,0 +1,133 @@
+pipeline {
+    agent any
+    parameters {
+    choice choices: ['QA', 'preprod','prod'], description: 'On which environment do you want to deploy ? ', name: 'env_name'
+     }
+    tools {
+        // Install the Maven version configured as "maven" and add it to the path.
+        maven "maven"
+    }
+    environment{
+
+    maven_home = tool 'maven'
+    }
+    stages {
+        stage('Git Checkout'){
+            steps{
+                // Get code from a GitHub repository for build
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'git', url: 'https://github.com/harikesh12/hello-world.git']])
+                // Get project(template) code from a Github
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'git', url: 'https://github.com/harikesh12/hello-world.git']])
+            }
+        }
+        stage('Build') {
+            input {
+                message 'IF you want to skip build stage ?'
+                ok 'Submit'
+                parameters {
+                choice choices: ['yes', 'No'], name: 'skip_test'
+                }
+            }
+            steps {
+                script{
+                if (skip_test.equals('No')){
+                // Run Maven on a Unix agent - For Github Repository where build is required.
+                sh "${maven_home}/bin/mvn clean install"
+                // sh "mv webapp/target/*.war webapp/target/myapp.war"
+                // To run Maven on a Windows agent, use
+                // bat "mvn -Dmaven.test.failure.ignore=true clean install"\
+                return
+            }
+                }
+
+        }
+        // Jfrog Artifactory Upload
+        stage('Artifact upload'){
+            steps{
+                script{
+                  if(params.env_name == "QA"){
+                    // the upload to QA repo
+                    // Search for .jar file and upload it to the Artifactory repo
+                     println "jf 'rt u webapp/target/*.war testqaproject'"
+                   // Publish the build-info to Artifactory.
+                     println "jf 'rt bp'"
+                  }
+                  else if(params.env_name == "preprod") {
+                    // then upload to preprod
+                     jf 'rt u webapp/target/*.war preprodproject'
+                     jf 'rt bp'
+                  }
+                  else{
+                    // upload to prod
+                    jf 'rt u webapp/target/*.war prodproject'
+                    jf 'rt bp'
+                  }
+                }
+                  
+            }
+        }
+
+        stage('Artifact Download'){
+            steps{
+                script{
+                  if(params.env_name == "QA"){
+                    // download from QA repo
+                    // Search for .jar file and download it to the locally
+                    println 'jf rt dl "testqaproject/*.war" local-folder-name/ --sort-by=created --sort-order=desc --limit=1'
+                  }
+                  else if(params.env_name == "preprod") {
+                   // download from preprod repo
+                    // Search for .jar file and download it to the locally
+                    jf rt dl "preprodproject/*.war" local-folder-name/ --sort-by=created --sort-order=desc --limit=1
+                  }
+                  else{
+                    // download from prod repo
+                    // Search for .jar file and download it to the locally
+                    jf rt dl "prodproject/*.war" local-folder-name/ --sort-by=created --sort-order=desc --limit=1
+                  }
+                }
+                  
+            }
+        }
+         stage('Deployment to QA'){
+            when{
+                expression{
+                    params.env_name == "QA"
+                }
+            }
+            steps{
+                script{
+                    def QA_platform_url = "https://sharepoint.com/QA-platform-url"
+                    println "java <project-folder-path> QA_platform_url -jar <QA-jar-file-path> -password <secret-text> "
+                }
+            }
+        }
+        stage('Deployment to preprod'){
+            when{
+                expression{
+                    params.env_name == "preprod"
+                }
+            }
+            steps{
+                script{
+                    def preprod_platform_url = "https://sharepoint.com/preprod-platform-url"
+                    println "java <project-folder-path> preprod_platform_url -jar <preprod-jar-file-path> -password <secret-text> "
+                }
+            }
+        }
+        stage('Deployment to prod'){
+            when{
+                expression{
+                    params.env_name == "prod"
+                }
+            }
+            steps{
+                script{
+                    def prod_platform_url = "https://sharepoint.com/prod-platform-url"
+                    println "java <project-folder-path> prod_platform_url -jar <prod-jar-file-path> -password <secret-text> "
+                }
+            }
+        }
+    }
+}
+}
