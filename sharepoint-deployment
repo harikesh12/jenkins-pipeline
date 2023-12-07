@@ -41,6 +41,7 @@ pipeline {
                 }
 
         }
+}
         // Jfrog Artifactory Upload
         stage('Artifact upload'){
             steps{
@@ -129,5 +130,4 @@ pipeline {
             }
         }
     }
-}
 }
