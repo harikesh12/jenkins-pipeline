@@ -99,7 +99,7 @@ pipeline {
             steps{
                 script{
                     def QA_platform_url = "https://sharepoint.com/QA-platform-url"
-                    println "java <project-folder-path> QA_platform_url -jar <QA-jar-file-path> -password <secret-text> "
+                    println "java <project-folder-path> ${QA_platform_url} -jar <QA-jar-file-path> -password <secret-text> "
                 }
             }
         }
@@ -112,7 +112,7 @@ pipeline {
             steps{
                 script{
                     def preprod_platform_url = "https://sharepoint.com/preprod-platform-url"
-                    println "java <project-folder-path> preprod_platform_url -jar <preprod-jar-file-path> -password <secret-text> "
+                    println "java <project-folder-path> ${preprod_platform_url} -jar <preprod-jar-file-path> -password <secret-text> "
                 }
             }
         }
@@ -125,7 +125,7 @@ pipeline {
             steps{
                 script{
                     def prod_platform_url = "https://sharepoint.com/prod-platform-url"
-                    println "java <project-folder-path> prod_platform_url -jar <prod-jar-file-path> -password <secret-text> "
+                    println "java <project-folder-path> ${prod_platform_url} -jar <prod-jar-file-path> -password <secret-text> "
                 }
             }
         }
