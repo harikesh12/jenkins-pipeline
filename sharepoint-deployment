@@ -78,12 +78,12 @@ pipeline {
                   else if(params.env_name == "preprod") {
                    // download from preprod repo
                     // Search for .jar file and download it to the locally
-                    jf rt dl "preprodproject/*.war" local-folder-name/ --sort-by=created --sort-order=desc --limit=1
+                    println 'jf rt dl "preprodproject/*.war" local-folder-name/ --sort-by=created --sort-order=desc --limit=1'
                   }
                   else{
                     // download from prod repo
                     // Search for .jar file and download it to the locally
-                    jf rt dl "prodproject/*.war" local-folder-name/ --sort-by=created --sort-order=desc --limit=1
+                    println 'jf rt dl "prodproject/*.war" local-folder-name/ --sort-by=created --sort-order=desc --limit=1'
                   }
                 }
                   
