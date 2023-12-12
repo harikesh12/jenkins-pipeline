@@ -1,0 +1,18 @@
+1- Download plugin Qualys WAS Scanner
+2- Now we need to generated code to integrate this scanner --> so go in pipeline syntax generator
+Qualys Portal  --> India  # but mainly it depends on where you have created your account. This identifiction can be done using your user ID.
+Configure Qualys user ID and Password in credential section of Jenkins
+
+Sample Integration -->
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Hello') {
+            steps {
+                qualysWASScan authRecord: 'useDefault', cancelOptions: 'none', credsId: '1f2dc47-ccfbc1051448', optionProfile: 'other', optionProfileId: '2117279', platform: 'INDIA_PLATFORM', pollingInterval: '5', scanName: 'pipeline-scan', scanType: 'VULNERABILITY', vulnsTimeout: '60*24', webAppId: '33671749'
+            }
+        }
+    }
+}
