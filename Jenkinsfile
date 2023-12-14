@@ -27,7 +27,7 @@ pipeline{
             steps{
                  withSonarQubeEnv('sonar-server') {
                    sh ''' ${scanner_home}/bin/sonar-scanner -Dsonar.projectName=cicd-axa \
-                       -Dsonar.projectKey=cicd-axa ''' 
+                       -Dsonar.projectKey=cicd-axa sonar.java.binaries=**/target/classes ''' 
     // some blocksonar.projectKey
              }
             }
