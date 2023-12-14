@@ -26,9 +26,10 @@ pipeline{
         stage('SonarQube-QualityCheck'){
             steps{
                  withSonarQubeEnv('sonar-server') {
-                   sh ''' ${scanner_home}/bin/sonar-scanner -Dsonar.projectName=cicd-axa \
-                       -Dsonar.projectKey=cicd-axa -D sonar.java.binaries=**/target/classes ''' 
-    // some blocksonar.projectKey
+                //    sh ''' ${scanner_home}/bin/sonar-scanner -Dsonar.projectName=cicd-axa \
+                //        -Dsonar.projectKey=cicd-axa -D sonar.java.binaries=**/target/classes ''' 
+                       sh ''' ${scanner_home}/bin/sonar-scanner '''
+ 
              }
             }
         }
