@@ -4,6 +4,7 @@ pipeline{
         maven 'maven'
     }
     environment{
+        scanner_home =  tool 'sonar-scanner'
         maven_home = tool 'maven'
     }
     stages{
@@ -20,6 +21,15 @@ pipeline{
         stage('Maven Build'){
             steps{
                  sh "${maven_home}/bin/mvn clean package"
+            }
+        }
+        stage('SonarQube-QualityCheck'){
+            steps{
+                 withSonarQubeEnv(credentialsId: 'sonarqube') {
+                   sh ''' ${scanner_home}/bin/sonar-scanner -Dsonar.projectName=cicd-axa
+  -Dsonar.projectKey=cicd-axa ''' 
+    // some block
+             }
             }
         }
     }
