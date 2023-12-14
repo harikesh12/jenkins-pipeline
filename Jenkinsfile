@@ -32,6 +32,12 @@ pipeline{
              }
             }
         }
+        stage('print'){
+            steps{
+                   sh '''echo ${scanner_home} '''
+    // some blocksonar.projectKey
+            }
+        }
     }
 
 }
