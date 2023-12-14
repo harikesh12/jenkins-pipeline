@@ -25,7 +25,7 @@ pipeline{
         }
         stage('SonarQube-QualityCheck'){
             steps{
-                 withSonarQubeEnv(credentialsId: 'sonarqube') {
+                 withSonarQubeEnv('sonar-server') {
                    sh ''' ${scanner_home}/bin/sonar-scanner -Dsonar.projectName=cicd-axa
   -Dsonar.projectKey=cicd-axa ''' 
     // some block
