@@ -23,20 +23,22 @@ pipeline{
                  sh "${maven_home}/bin/mvn clean package"
             }
         }
-        stage('SonarQube-QualityCheck'){
+        stage('SonarQube-Scanner'){
             steps{
                  withSonarQubeEnv('sonar-server') {
                 //    sh ''' ${scanner_home}/bin/sonar-scanner -Dsonar.projectName=cicd-axa \
                 //        -Dsonar.projectKey=cicd-axa -D sonar.java.binaries=**/target/classes ''' 
-                       sh ''' ${scanner_home}/bin/sonar-scanner '''
+                // for this we have to define above properties in /var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/sonar-scanner/conf
+                sh ''' ${scanner_home}/bin/sonar-scanner '''
  
              }
             }
         }
-        stage('print'){
+        stage('Quality-Gate '){
             steps{
-                   sh '''echo ${scanner_home} '''
-    // some blocksonar.projectKey
+                script{
+                 waitForQualityGate abortPipeline: false, credentialsId: 'sonarqube'
+                }
             }
         }
     }
