@@ -28,6 +28,11 @@ pipeline{
                 }
             }
         }
+        stage('trigger Qulays job'){
+            steps{
+                build 'Qualys'
+            }
+        }
     }
 }
 
