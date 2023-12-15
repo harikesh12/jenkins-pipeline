@@ -62,6 +62,15 @@ pipeline{
 
             }
         }
+         stage('jfrog Artifactoy Scan'){
+            steps{
+                // trigger when build is stable
+               triggers {
+                    upstream 'cd pipeline, '
+                    }
+
+            }
+        }
     }
 
 }
