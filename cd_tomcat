@@ -9,7 +9,7 @@ pipeline{
               sh "rm -rf jfrog_artifact_download"  
               sh "mkdir jfrog_artifact_download"
               sh "cd jfrog_artifact_download"
-              sh "sudo wget https://jfrogpoc1.jfrog.io/artifactory/axa-maven-snapshot/"
+              sh "wget https://jfrogpoc1.jfrog.io/artifactory/axa-maven-snapshot/"
             //   jf 'rt dl "axa-maven-snapshot/server/target/server.jar"'
             }
         }
