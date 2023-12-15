@@ -58,7 +58,7 @@ pipeline{
             steps{
                 // Search for .jar file and scan it
                 jf 's *.jar axa-maven-snapshot/server/target"'
-                jf 'bs'
+                jf 'rt bs'
 
             }
         }
