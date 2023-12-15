@@ -9,8 +9,11 @@ pipeline{
               sh "rm -rf jfrog_artifact_download"  
               sh "mkdir jfrog_artifact_download"
               sh "cd jfrog_artifact_download"
-           //   sh "wget https://jfrogpoc1.jfrog.io/artifactory/axa-maven-snapshot/"
-               jf 'rt dl axa-maven-snapshot/webapp/target/'
+              script{
+              dir('webapp/target') {
+              jf 'rt dl axa-maven-snapshot/webapp/target/'
+                }
+              }
             }
         }
     }
