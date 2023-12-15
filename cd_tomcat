@@ -1,0 +1,13 @@
+pipeline{
+    agent any
+    stages{
+        stage('download jfrog latest artifact '){
+            steps{
+              sh "mkdir jfrog_artifact_download"
+              sh "cd jfrog_artifact_download"
+              jf 'rt dl  "axa-maven-snapshot/server/target/*.jar" --sort-by=created --sort-order=desc --limit=1'
+            }
+        }
+    }
+}
+
