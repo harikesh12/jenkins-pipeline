@@ -44,7 +44,7 @@ pipeline{
                 }
             }
         }
-         stage('jfrog Artifactoy Scan'){
+         stage('jfrog Artifactoy Upload'){
             steps{
                 // Search for .jar file and upload it to the Artifactory repo
                 jf 'rt u *.jar axa-maven-snapshot'
@@ -54,11 +54,11 @@ pipeline{
 
             }
         }
-         stage('jfrog Artifactoy Upload'){
+         stage('jfrog Artifactoy Scan'){
             steps{
                 // Search for .jar file and scan it
                 jf 's *.jar axa-maven-snapshot/server/target"'
-                jf 'rt bs'
+                jf 'bs'
 
             }
         }
