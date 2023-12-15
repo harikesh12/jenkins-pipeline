@@ -34,6 +34,8 @@ pipeline{
              }
             }
         }
+        // Webhook does not support loop back address i.e. jenkins and sonarqube should not be on same machine
+        // Below step will only allow if quality gate condition is passed.
         stage('Quality-Gate '){
             steps{
                 script{
