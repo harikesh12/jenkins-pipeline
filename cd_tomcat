@@ -28,11 +28,11 @@ pipeline{
                 }
             }
         }
-        # stage('trigger Qulays job'){
-        #     steps{
-        #         build 'Qualys'
-        #     }
-        # }
+        // stage('trigger Qulays job'){
+        //     steps{
+        //         build 'Qualys'
+        //     }
+        // }
     }
 }
 
