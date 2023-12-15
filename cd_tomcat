@@ -1,5 +1,8 @@
 pipeline{
     agent any
+    tools{
+        jfrog 'jfrog-cli'
+    }
     stages{
         stage('download jfrog latest artifact '){
             steps{
