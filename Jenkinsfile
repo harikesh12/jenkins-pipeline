@@ -47,7 +47,7 @@ pipeline{
          stage('jfrog Artifactoy Upload'){
             steps{
                 // Search for .jar file and upload it to the Artifactory repo
-                jf 'rt u *.jar axa-maven-snapshot'
+                jf 'rt u webapp/target/webapp.war axa-maven-snapshot'
 
               // Publish the build-info to Artifactory.
                 jf 'rt bp'
@@ -57,7 +57,7 @@ pipeline{
          stage('jfrog Artifactoy Scan'){
             steps{
                 // Search for .jar file and scan it
-                jf 's *.jar axa-maven-snapshot/server/target"'
+                jf 's *.war axa-maven-snapshot"'
                 jf 'rt bs'
 
             }
