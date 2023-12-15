@@ -20,7 +20,7 @@ pipeline{
         stage('Deployment to Tomcat server'){
             steps{
                 sshagent(['90e676f2-75d7-41a9-bac4-593f1ebda80b']) {
-                   scp -o StrictHostKeyChecking=no jfrog_artifact_download/webapp/target/webapp.war hari@13.201.21.81:/opt/tomcat/webapps
+                   scp jfrog_artifact_download/webapp/target/webapp.war hari@13.201.21.81:/opt/tomcat/webapps
                    ssh hari@13.201.21.81 /opt/tomcat/bin/shutdown.sh
                    ssh hari@13.201.21.81 /opt/tomcat/bin/startup.sh
                 }
