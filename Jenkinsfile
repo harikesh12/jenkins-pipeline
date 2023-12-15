@@ -57,7 +57,8 @@ pipeline{
          stage('jfrog Artifactoy Upload'){
             steps{
                 // Search for .jar file and scan it
-                jf 's *.jar axa-maven-snapshot/server/target --watches "daily-run"'
+                jf 's *.jar axa-maven-snapshot/server/target"'
+                jf 'rt bs'
 
             }
         }
