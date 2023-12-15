@@ -2,6 +2,7 @@ pipeline{
     agent any
     tools{
         maven 'maven'
+        jfrog 'jfrog-cli'
     }
     environment{
         scanner_home =  tool 'sonar-scanner'
