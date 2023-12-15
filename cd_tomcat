@@ -10,7 +10,7 @@ pipeline{
               sh "mkdir jfrog_artifact_download"
               sh "cd jfrog_artifact_download"
               script{
-              dir('webapp/target') {
+              dir('jfrog_artifact_download') {
               jf 'rt dl axa-maven-snapshot/webapp/target/'
                 }
               }
