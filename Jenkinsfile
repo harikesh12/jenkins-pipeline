@@ -62,11 +62,11 @@ pipeline{
 
             }
         }
-         stage('Trigger upstream job'){
-            steps{
-                build 'cd pipeline'
-            }
-        }
+        //  stage('Trigger upstream job'){
+        //     steps{
+        //         build 'cd pipeline'
+        //     }
+        // }
     }
 
 }
