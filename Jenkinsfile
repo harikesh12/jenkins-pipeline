@@ -64,12 +64,7 @@ pipeline{
         }
          stage('Trigger upstream job'){
             steps{
-                script{
-                // trigger when build is stable
-               triggers {
-                    upstream 'cd pipeline, '
-                    }
-                }
+                build 'cd pipeline'
             }
         }
     }
