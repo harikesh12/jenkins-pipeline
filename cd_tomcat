@@ -9,9 +9,10 @@ pipeline{
               sh "rm -rf jfrog_artifact_download"  
               sh "mkdir jfrog_artifact_download"
               sh "cd jfrog_artifact_download"
+    // to download latest jfrog artifactory
               script{
               dir('jfrog_artifact_download') {
-              jf 'rt dl axa-maven-snapshot/webapp/target/'
+              jf 'rt dl axa-maven-snapshot/webapp/target/ --sort-by=created --sort-order=desc --limit=1'
                 }
               }
             }
