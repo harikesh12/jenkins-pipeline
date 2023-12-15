@@ -43,6 +43,16 @@ pipeline{
                 }
             }
         }
+         stage('jfrog Artifactoy Upload'){
+            steps{
+                // Search for .jar file and upload it to the Artifactory repo
+                jf 'rt u *.jar axa-maven-snapshot'
+
+              // Publish the build-info to Artifactory.
+                jf 'rt bp'
+
+            }
+        }
     }
 
 }
